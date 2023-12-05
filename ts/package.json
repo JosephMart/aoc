@@ -1,22 +1,32 @@
 {
-  "name": "@martinsen/aoc",
-  "version": "1.0.0",
-  "description": "AoC",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/JosephMart/aoc.git"
-  },
-  "keywords": [
-    "aoc"
-  ],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/JosephMart/aoc/issues"
-  },
-  "homepage": "https://github.com/JosephMart/aoc#readme"
+    "name": "@martinsen/aoc",
+    "version": "1.0.0",
+    "description": "AoC",
+    "type": "module",
+    "scripts": {
+        "download": "source .env && npx ts-node --esm src/download.ts",
+        "test": "wtr test/**/*.spec.js --node-resolve"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/JosephMart/aoc.git"
+    },
+    "keywords": [
+        "aoc"
+    ],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/JosephMart/aoc/issues"
+    },
+    "homepage": "https://github.com/JosephMart/aoc#readme",
+    "devDependencies": {
+        "@types/node": "^20.10.3",
+        "@web/dev-server-esbuild": "^1.0.1",
+        "@web/test-runner": "^0.18.0",
+        "esbuild": "^0.19.7",
+        "esbuild-plugin-tsc": "^0.4.0",
+        "ts-node": "^10.9.1",
+        "tslib": "^2.6.2"
+    }
 }
