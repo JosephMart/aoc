@@ -1,6 +1,6 @@
 import fs from "fs";
 
-const filePath = "./src/d1.txt";
+const filePath = "./src/input.txt";
 const lines = fs.readFileSync(filePath, "utf-8").split("\n");
 
 const numMap = {

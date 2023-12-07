@@ -1,7 +1,7 @@
 import fs from "fs";
 
-// const filePath = "./src/input.txt";
-const filePath = "./src/ex.txt";
+const filePath = "./src/input.txt";
+// const filePath = "./src/ex.txt";
 const lines = fs
     .readFileSync(filePath, "utf-8")
     .split("\n")
