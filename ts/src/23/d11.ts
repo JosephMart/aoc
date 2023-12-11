@@ -1,10 +1,8 @@
 import fs from "fs";
 
 const filePath = "./src/input.txt";
-// const filePath = "./src/ex.txt";
-type Pos = { x: number; y: number };
-
-const expandedRows: number[] = [];
+const FACTOR = 1_000_000; // Factor of 2 for part 1.
+const expandedRows = new Set<number>();
 const colsWithGalaxies = new Set<number>();
 
 const result = fs
@@ -18,30 +16,17 @@ const result = fs
                 colsWithGalaxies.add(x);
             }
         });
-        if (acc.length === galaxyCount) {
-            expandedRows.push(y);
-        }
+        if (acc.length === galaxyCount) expandedRows.add(y);
         return acc;
-    }, [] as Pos[])
-    .reduce((acc, from, i, galaxies) => {
-        return galaxies.slice(i + 1).reduce((acc, to) => {
-            return acc + distance(from, to, 1_000_000); // Factor of 2 for part 1.
-        }, acc);
+    }, [] as { x: number; y: number }[])
+    .reduce((totalSteps, p0, i, galaxies) => {
+        return galaxies.slice(i + 1).reduce((acc, p1) => {
+            let steps = 0;
+            for (let r = Math.min(p0.y, p1.y); r < Math.max(p0.y, p1.y); r++)
+                steps += expandedRows.has(r) ? FACTOR : 1;
+            for (let c = Math.min(p0.x, p1.x); c < Math.max(p0.x, p1.x); c++)
+                steps += !colsWithGalaxies.has(c) ? FACTOR : 1;
+            return acc + steps;
+        }, totalSteps);
     }, 0);
-
 console.log(result);
-
-function distance(p1: Pos, p2: Pos, factor = 2) {
-    const r1 = Math.min(p1.y, p2.y);
-    const r2 = Math.max(p1.y, p2.y);
-    const c1 = Math.min(p1.x, p2.x);
-    const c2 = Math.max(p1.x, p2.x);
-    let result = 0;
-    for (let r = r1; r < r2; r++) {
-        result += expandedRows.includes(r) ? factor : 1;
-    }
-    for (let c = c1; c < c2; c++) {
-        result += !colsWithGalaxies.has(c) ? factor : 1;
-    }
-    return result;
-}
